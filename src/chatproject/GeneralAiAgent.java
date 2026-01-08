@@ -13,13 +13,16 @@ import java.net.*;
 public class GeneralAiAgent extends Agent {
 
     // --- PUNE CHEIA AICI ---
-    private static final String API_KEY = ""; 
+    private String API_KEY;
     private static final String MODEL = "gpt-4o-mini"; 
 
     @Override
     protected void setup() {
+    	API_KEY = EnvLoader.getApiKey(); // Load key
+        if (API_KEY == null) { doDelete(); return; }
+        
         System.out.println("🔮 Oracle Agent " + getLocalName() + " is online.");
-
+        
         // 1. Îl înregistrăm ca "chat-agent-service" pentru a apărea în lista de contacte a tuturor!
         DFAgentDescription dfd = new DFAgentDescription();
         dfd.setName(getAID());

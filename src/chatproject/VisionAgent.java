@@ -17,9 +17,12 @@ import java.net.URL;
 public class VisionAgent extends Agent {
     
     // PUNE CHEIA AICI
-    private static final String API_KEY = "";
+    private String API_KEY;
 
     protected void setup() {
+    	API_KEY = EnvLoader.getApiKey(); // Load key
+        if (API_KEY == null) { doDelete(); return; }
+
         System.out.println("👁️ Vision Agent " + getLocalName() + " ready.");
         
         // 1. Înregistrare serviciu "vision-service"

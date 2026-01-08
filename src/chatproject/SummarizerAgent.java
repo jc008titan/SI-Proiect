@@ -14,10 +14,16 @@ import java.nio.charset.StandardCharsets;
 public class SummarizerAgent extends Agent {
     
     // --- PASTE YOUR API KEY HERE ---
-    private static final String API_KEY = "";
+    private String API_KEY;
     
     @Override
     protected void setup() {
+    	API_KEY = EnvLoader.getApiKey();
+        if (API_KEY == null) {
+            System.out.println("⚠️ SummarizerAgent shutting down due to missing API Key.");
+            doDelete();
+            return;
+        }
         System.out.println("📝 Summarizer Agent " + getLocalName() + " ready.");
         
         // 1. Register Service
