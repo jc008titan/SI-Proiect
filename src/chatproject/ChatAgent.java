@@ -67,7 +67,7 @@ public class ChatAgent extends Agent {
                     
                     // Formatare mesaj pentru afișare și salvare
                     String logEntry;
-                    if(sender.equals("vision") || sender.equals("summarizer") || sender.equals("oracle")) {
+                    if(sender.equals("vision") || sender.equals("summarizer") || sender.equals("chatgpt")) {
                         logEntry = "🤖 " + sender.toUpperCase() + ": " + content + "\n";
                     } else {
                         logEntry = "[MSG] " + sender + ": " + content + "\n";

@@ -21,14 +21,14 @@ public class GeneralAiAgent extends Agent {
     	API_KEY = EnvLoader.getApiKey(); // Load key
         if (API_KEY == null) { doDelete(); return; }
         
-        System.out.println("🔮 Oracle Agent " + getLocalName() + " is online.");
+        System.out.println("🔮 chatgpt Agent " + getLocalName() + " is online.");
         
         // 1. Îl înregistrăm ca "chat-agent-service" pentru a apărea în lista de contacte a tuturor!
         DFAgentDescription dfd = new DFAgentDescription();
         dfd.setName(getAID());
         ServiceDescription sd = new ServiceDescription();
         sd.setType("chat-agent-service"); // Același tip ca oamenii, ca să apară în dropdown
-        sd.setName("JADE-Oracle");
+        sd.setName("JADE-chatgpt");
         dfd.addServices(sd);
         try { DFService.register(this, dfd); } catch (FIPAException e) {}
 
@@ -43,11 +43,11 @@ public class GeneralAiAgent extends Agent {
                     // Dacă mesajul e gol sau e o cerere ciudată, ignorăm
                     if(question == null || question.length() < 2) return;
 
-                    System.out.println("🔮 Oracle thinking about: " + question);
+                    System.out.println("🔮 chatgpt thinking about: " + question);
                     String answer = callOpenAI(question);
 
                     ACLMessage reply = msg.createReply();
-                    reply.setContent("[ORACLE]: " + answer);
+                    reply.setContent("[chatgpt]: " + answer);
                     myAgent.send(reply);
                 } else { block(); }
             }
@@ -87,7 +87,7 @@ public class GeneralAiAgent extends Agent {
                 while (respStr.charAt(end - 1) == '\\') end = respStr.indexOf("\"", end + 1);
                 return respStr.substring(start, end).replace("\\n", "\n").replace("\\\"", "\"");
             }
-            return "Oracle is confused.";
-        } catch (Exception e) { return "Oracle is offline (API Error)."; }
+            return "chatgpt is confused.";
+        } catch (Exception e) { return "chatgpt is offline (API Error)."; }
     }
 }
